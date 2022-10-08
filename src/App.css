@@ -1,0 +1,21 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    color: white;
+    min-height: 100vh;
+    background-image: url('https://res.cloudinary.com/dwz16rstr/image/upload/v1665090930/react-js-weather/sea-sky-storm-horizon-atmosphere-thunder-552099-wallhere.com_wlxmal.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+#root {
+    overflow: hidden;
+    height: 100vh;
+    width: 100%;
+}
+
