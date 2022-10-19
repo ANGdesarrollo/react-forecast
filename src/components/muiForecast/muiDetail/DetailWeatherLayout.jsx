@@ -22,7 +22,7 @@ export default function DetailWeatherLayout({
     return (
         <>
             {
-                !arrayH3.list ? <LoadingData></LoadingData> :
+                context.loadingSelected ? <LoadingData></LoadingData> :
                     <Fade in={true}>
                         <Box display='flex' justifyContent='center' mt={3} width={1}>
                             <Box width={1} sx={responsiveLayoutExternal}>
