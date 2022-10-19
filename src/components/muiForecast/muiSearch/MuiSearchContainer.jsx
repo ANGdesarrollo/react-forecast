@@ -1,7 +1,7 @@
 import MuiSearchLayout from "./MuiSearchLayout.jsx";
 import React, {useContext, useState} from "react";
 import {forecastContext} from "../../context/ForecastContext.jsx";
-import Loading from "../Loading.jsx";
+import LoadingData from "../LoadingData.jsx";
 import {Button, Fade} from "@mui/material";
 import {Send} from "@mui/icons-material";
 
@@ -35,7 +35,7 @@ export default function MuiSearchContainer() {
 
     function selectCity() {
         return (
-            <>{context.loading ? <Loading/> : state.length !== 0 && state.map((el, i) => {
+            <>{context.loadingFind ? <LoadingData/> : state.length !== 0 && state.map((el, i) => {
                 return (
                     <Fade key={i} in={true}>
                         <Button color='inherit'

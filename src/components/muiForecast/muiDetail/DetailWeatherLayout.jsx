@@ -1,25 +1,31 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {forecastContext} from "../../context/ForecastContext.jsx";
-import {Box, Button, Fade, Grid, Typography} from "@mui/material";
-import Loading from "../Loading";
+import {Box, Button, Fade, Typography} from "@mui/material";
+import LoadingData from '../LoadingData'
 import {responsiveLayoutInternalLeft} from "../muiSearch/MuiStyles.jsx";
 import {responsiveLayoutInternalRight} from "../muiSearch/MuiStyles.jsx";
 import {responsiveLayoutExternal} from "../muiSearch/MuiStyles.jsx";
 
 
-export default function DetailWeatherLayout({tempType, tempResult, setTempType, buttonSelectedF, buttonSelectedC, changeColor}) {
+export default function DetailWeatherLayout({
+                                                tempType,
+                                                tempResult,
+                                                setTempType,
+                                                buttonSelectedF,
+                                                buttonSelectedC,
+                                                changeColor
+                                            }) {
     const context = useContext(forecastContext)
     let array = context.cityToShow
-    let arrayH3 = context. forecast3hs
+    let arrayH3 = context.forecast3hs
 
-    console.log(arrayH3)
     return (
         <>
             {
-                context.loadingSelected ? <Loading></Loading> :
+                !arrayH3.list ? <LoadingData></LoadingData> :
                     <Fade in={true}>
                         <Box display='flex' justifyContent='center' mt={3} width={1}>
-                            <Box width={1} sx={responsiveLayoutExternal} >
+                            <Box width={1} sx={responsiveLayoutExternal}>
                                 <Box display='flex' flexWrap='wrap' p={2}>
                                     <Box pb={1} borderBottom={1} mb={2} display='flex' justifyContent='space-between'
                                          width={1} mt={1}>
@@ -56,7 +62,7 @@ export default function DetailWeatherLayout({tempType, tempResult, setTempType, 
                                                 <Box><Typography variant='h3'
                                                                  component='span'>{tempResult(array.main.temp)}{tempType('h3')}</Typography></Box>
                                                 <Box pt={1}><Typography variant='body2'
-                                                            component='span'>RealFeel {tempResult(array.main.feels_like)}</Typography></Box>
+                                                                        component='span'>RealFeel {tempResult(array.main.feels_like)}</Typography></Box>
                                             </Box>
                                         </Box>
                                     </Box>
@@ -70,29 +76,28 @@ export default function DetailWeatherLayout({tempType, tempResult, setTempType, 
                                         </Box>
                                     </Box>
                                 </Box>
-                                {arrayH3.list &&
-                                    <Box p={2} display='flex' width={1} flexWrap='wrap' justifyContent='space-around'>
-                                        <Box borderBottom={1} width={1} display='flex' justifyContent='center'>
-                                            <Typography component='span'>Next Hours</Typography>
-                                        </Box>
-                                        {arrayH3.list.map((el, i) => {
-                                            if(i < 4) {
-                                                return(
-                                                    <Box pt={3} display='flex' flexDirection='column' alignItems='center'>
-                                                        <Box>{(i + 1) * 3}HS</Box>
-                                                        <Box>
-                                                            <img className="weather-icon"
-                                                                 src={`https://openweathermap.org/img/wn/${el.weather[0].icon}.png`}
-                                                                 alt="weather icon"/>
-                                                        </Box>
-                                                        <Box>{el.weather[0].main}</Box>
-                                                        <Box>{tempResult(el.main.temp)}{tempType('body2')}</Box>
+                                <Box p={2} display='flex' width={1} flexWrap='wrap' justifyContent='space-around'>
+                                    <Box borderBottom={1} width={1} display='flex' justifyContent='center'>
+                                        <Typography component='span'>Next Hours</Typography>
+                                    </Box>
+                                    {arrayH3.list.map((el, i) => {
+                                        if (i < 4) {
+                                            return (
+                                                <Box key={i} pt={3} display='flex' flexDirection='column'
+                                                     alignItems='center'>
+                                                    <Box>{(i + 1) * 3}HS</Box>
+                                                    <Box>
+                                                        <img className="weather-icon"
+                                                             src={`https://openweathermap.org/img/wn/${el.weather[0].icon}.png`}
+                                                             alt="weather icon"/>
                                                     </Box>
-                                                )
-                                            }
-                                        })}
-                                    </Box>}
-
+                                                    <Box>{el.weather[0].main}</Box>
+                                                    <Box>{tempResult(el.main.temp)}{tempType('body2')}</Box>
+                                                </Box>
+                                            )
+                                        }
+                                    })}
+                                </Box>
                             </Box>
                         </Box>
                     </Fade>

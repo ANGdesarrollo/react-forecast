@@ -28,15 +28,15 @@ export default function ForecastContext({children}) {
         const cityWeather = listOfCitys.data.find(el => el.country.includes(itemSelected.country))
         setLoadingSelected(true)
         axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${cityWeather.lat}&lon=${cityWeather.lon}&appid=41baaad6d0789c3abb285a7e068730f4`)
-            .then(res => setCityToShow(res.data))
+            .then(res => {setCityToShow(res.data); console.log(loadingSelected)})
             .catch(err => err)
             .finally(() =>
-            {setLoadingSelected(false);
+            {
             setShowResult(true)}
             )
 
         axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${cityWeather.lat}&lon=${cityWeather.lon}&appid=41baaad6d0789c3abb285a7e068730f4`)
-            .then(res => {setForecast3hs(res.data)})
+            .then(res => {setForecast3hs(res.data); console.log(loadingSelected)})
             .catch(err => err)
             .finally(() =>
                 {setLoadingSelected(false)}
